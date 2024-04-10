@@ -1,16 +1,21 @@
 import { Box, Flex, Button } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 /*
  * @Author: Moritz Schöninger 
  * @Email: soemod20@htl-kaindorf.at
  * @Date: 2024-04-09 13:56:18 
  * @Last Modified by: Moritz Schöninger
- * @Last Modified time: 2024-04-09 14:31:28
+ * @Last Modified time: 2024-04-10 10:10:13
  * @Description: Simple NavBar component
  */
 
 
 const Navbar = () => {
+
+
+  const navigate = useNavigate();
+
   return (
     <Flex
       as="nav"
@@ -31,6 +36,7 @@ const Navbar = () => {
         colorScheme="blue"
         fontWeight="bold"
         textAlign={'center'}
+        onClick={() => navigate("/chooseteam")}
         px="4"
         py="2"
       >
