@@ -4,6 +4,8 @@ import { Homepage } from './_components/home/Homepage'
 import { TeamSelection } from './_components/newgame/TeamSelection'
 import { ContextManager } from './_contexts/ContextManager'
 import { ITeam } from './_common/models'
+import Layout from './_components/Layout'
+import { Dashboard } from './_components/gamepage/Dashboard'
 
 function App() {
 
@@ -15,10 +17,13 @@ function App() {
     <>
       <ContextManager>
         {team ? 
-        <BrowserRouter>
-          <Routes>
-          </Routes>
-        </BrowserRouter>
+         <Layout>
+          <BrowserRouter>
+            <Routes>
+              <Route path='' element={<Dashboard/>}/>
+            </Routes>
+          </BrowserRouter>
+         </Layout> 
         : 
         <BrowserRouter>
           <Routes>

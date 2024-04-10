@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { TeamContextProvider } from "./TeamContext";
+import { TeamsContextProvider } from "./TeamsContext";
 
 interface Props {
   children : ReactNode
@@ -10,7 +11,7 @@ interface Props {
  * @Email: soemod20@htl-kaindorf.at
  * @Date: 2024-04-10 10:01:06 
  * @Last Modified by: Moritz Schöninger
- * @Last Modified time: 2024-04-10 10:01:39
+ * @Last Modified time: 2024-04-10 11:23:38
  * @Description: Component to have all ContextProviders in one Component,
  *               so that App.tsx is not full of Providers
  */
@@ -18,8 +19,10 @@ interface Props {
 
 export const ContextManager = ({children} : Props) => {
   return (
-    <TeamContextProvider>
+    <TeamsContextProvider>
+      <TeamContextProvider>
         {children}
-    </TeamContextProvider>
+      </TeamContextProvider>
+    </TeamsContextProvider>
   );
 }
