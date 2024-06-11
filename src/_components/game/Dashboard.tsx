@@ -94,8 +94,8 @@ export const Dashboard = () => {
         </div>
         <Stack>
           <div>
-          <Heading paddingStart={'8rem'} pt={5}>Injury Report</Heading>
-            <TableContainer ms={20} mt={5} width={'20rem'}>
+          <Heading paddingStart={'11rem'} pt={5}>Injury Report</Heading>
+            <TableContainer ms={20} mt={5} width={'25rem'}>
                   <Table bgColor={'white'} variant={'simple'} textColor={'whiteAlpha'}  color={'white'}>
                     <Thead bgColor={'darkGrey'}>
                       <Tr>
@@ -125,8 +125,8 @@ export const Dashboard = () => {
                 </TableContainer>
           </div>
           <div>
-          <Heading paddingStart={'11rem'} pt={5}>Next Up</Heading>
-            <TableContainer ms={20} mt={5} width={'20rem'}>
+          <Heading paddingStart={'14rem'} pt={5}>Next Up</Heading>
+            <TableContainer ms={20} mt={5} width={'25rem'}>
                   <Table bgColor={'white'} variant={'simple'} textColor={'whiteAlpha'}  color={'white'}>
                     <Thead bgColor={'darkGrey'}>
                       <Tr>

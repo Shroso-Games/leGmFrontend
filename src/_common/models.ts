@@ -12,6 +12,7 @@ export interface ITeam {
 export interface IMatch {
   home_team: IMatchTeam;
   away_team: IMatchTeam;
+  my_team: number;
 }
 
 export interface IMatchTeam {
@@ -26,11 +27,14 @@ export interface IMatchPlayer {
   name:      string;
   offRating: number;
   defRating: number;
+  position: string;
 }
 
 export interface IMatchResponse {
   "home_team": IMatchResponseTeam,
-  "away_team": IMatchResponseTeam
+  "away_team": IMatchResponseTeam,
+  "who_won": number;
+  "whoami": number;
 }
 
 export interface IMatchResponseTeam {
@@ -40,6 +44,7 @@ export interface IMatchResponseTeam {
 
 export interface IMatchResponsePlayer {
   "3pt_made":     number;
+    position:     string;
     assists:        number;
     blocks:         number;
     fga:            number;

@@ -7,6 +7,7 @@ import { ITeam } from './_common/models'
 import { Dashboard } from './_components/game/Dashboard'
 import Layout from './_components/game/Layout'
 import { PlayGame } from './_components/game/PlayGame'
+import { MatchResults } from './_components/game/MatchResults'
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Dashboard/>}/>
               <Route path='/sim' element={<PlayGame/>}/>
+              <Route path='/match_outcome' element={<MatchResults/>}/>
             </Routes>
           </BrowserRouter>
         </Layout>
