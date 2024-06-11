@@ -4,10 +4,15 @@ import { Homepage } from './_components/home/Homepage'
 import { TeamSelection } from './_components/newgame/TeamSelection'
 import { ContextManager } from './_contexts/ContextManager'
 import { ITeam } from './_common/models'
+import { Dashboard } from './_components/game/Dashboard'
+import Layout from './_components/game/Layout'
+import { PlayGame } from './_components/game/PlayGame'
+
 
 function App() {
 
-  const team : ITeam = localStorage.getItem("team") ? JSON.parse(localStorage.getItem("team") as string) : null;
+  const team : ITeam = localStorage.getItem("team") && JSON.parse(localStorage.getItem('team') as string) != "{}" ?
+   JSON.parse(localStorage.getItem("team") as string) : null;
 
   console.log(team);
 
@@ -15,10 +20,15 @@ function App() {
     <>
       <ContextManager>
         {team ? 
-        <BrowserRouter>
-          <Routes>
-          </Routes>
-        </BrowserRouter>
+        <Layout>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Dashboard/>}/>
+              <Route path='/sim' element={<PlayGame/>}/>
+            </Routes>
+          </BrowserRouter>
+        </Layout>
+
         : 
         <BrowserRouter>
           <Routes>

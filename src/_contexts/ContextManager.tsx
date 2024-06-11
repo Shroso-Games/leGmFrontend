@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { TeamContextProvider } from "./TeamContext";
+import { SpinnerContextProvider } from "./SpinnerContext";
 
 interface Props {
   children : ReactNode
@@ -18,8 +19,10 @@ interface Props {
 
 export const ContextManager = ({children} : Props) => {
   return (
-    <TeamContextProvider>
+    <SpinnerContextProvider>
+      <TeamContextProvider>
         {children}
-    </TeamContextProvider>
+      </TeamContextProvider>
+    </SpinnerContextProvider>
   );
 }

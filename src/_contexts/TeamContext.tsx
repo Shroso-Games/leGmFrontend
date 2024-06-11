@@ -29,8 +29,13 @@ export const TeamContextProvider = ({children} : Props) => {
 
   //* INFO : Setting the team to localStorage as well 
   const setTeamStorage = (teamStorage: ITeam) => {
-    setTeam(teamStorage);
-    localStorage.setItem('team', JSON.stringify(teamStorage));
+    if ( teamStorage == {} as ITeam) {
+      setTeam(teamStorage);
+      localStorage.removeItem('team');
+    } else {
+      setTeam(teamStorage);
+      localStorage.setItem('team', JSON.stringify(teamStorage));
+    }
   }
 
   return (

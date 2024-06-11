@@ -8,3 +8,8 @@ export const apiClient = axios.create({
       'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'  
     }
 });
+
+
+export const pythonClient = axios.create({
+  baseURL: "https://127.0.0.1:5000/"
+})
