@@ -2,7 +2,7 @@ import { createContext, ReactNode, useState } from "react";
 import { ITeam } from "../_common/models";
 
 
-const teams = localStorage.getItem('teams') ? JSON.parse(localStorage.getItem('teams') as string) : [];
+const teams: ITeam[] = localStorage.getItem('teams') ? JSON.parse(localStorage.getItem('teams') as string) : [];
 
 export const TeamsContext = createContext<[ITeam[], (teams: ITeam[]) => void]>([teams, () => null]);
 

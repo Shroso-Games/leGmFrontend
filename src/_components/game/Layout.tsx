@@ -33,7 +33,7 @@ const Layout = ({ children } : Props) => {
             <Button ms={5} color={'white'} _hover={{bgColor: 'darkgreen'}} mb={5} bgColor={'green'}><a href="/sim">Play →</a></Button>
           </Flex>
           <Link color={"black"} href="/">Dashboard</Link>
-          <Link color={"black"}>Roster</Link> 
+          <Link color={"black"} href="/roster">Roster</Link> 
           <Link color={"black"}>Schedule</Link>
           <Link color={"black"}>Free Agency</Link>
           <Link color={"black"}>Trade Players</Link>

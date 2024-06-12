@@ -8,6 +8,7 @@ import { Dashboard } from './_components/game/Dashboard'
 import Layout from './_components/game/Layout'
 import { PlayGame } from './_components/game/PlayGame'
 import { MatchResults } from './_components/game/MatchResults'
+import { Roster } from './_components/gamepage/Roster'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
               <Route path='/' element={<Dashboard/>}/>
               <Route path='/sim' element={<PlayGame/>}/>
               <Route path='/match_outcome' element={<MatchResults/>}/>
+              <Route path='/roster' element={<Roster/>}/>
             </Routes>
           </BrowserRouter>
         </Layout>

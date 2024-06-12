@@ -1,6 +1,7 @@
 import { Flex, Heading, TableContainer, Table, Thead, Tr, Td, Tbody, Th, Stack,Image } from "@chakra-ui/react";
 import { ReactNode, useContext } from "react";
 import { TeamContext } from "../../_contexts/TeamContext";
+import { TeamsContext } from "../../_contexts/TeamsContext";
 
 interface Props {
   children : ReactNode
@@ -8,6 +9,7 @@ interface Props {
 
 export const Dashboard = () => {
   const [team] = useContext(TeamContext);
+  const [teamss] = useContext(TeamsContext);
   return (
     <div>
       <Heading textAlign={'center'} size="md">Welcome to the</Heading>
@@ -27,68 +29,13 @@ export const Dashboard = () => {
                       <Th isNumeric>Loss</Th>
                     </Tr>
                   </Thead>
-                  <Tbody>
-                          <Tr /*bgColor={t.name === team.name ? 'yellowgreen' : 'white'} key={t.name}*/>
-                            <Th>Mavericks</Th>
-                            <Th isNumeric>30</Th>
-                            <Th isNumeric>11</Th>
-                          </Tr>
-                          <Tr /*bgColor={t.name === team.name ? 'yellowgreen' : 'white'} key={t.name}*/>
-                            <Th>Lakers</Th>
-                            <Th isNumeric>29</Th>
-                            <Th isNumeric>11</Th>
-                          </Tr>
-                          <Tr /*bgColor={t.name === team.name ? 'yellowgreen' : 'white'} key={t.name}*/>
-                            <Th>Warriors</Th>
-                            <Th isNumeric>30</Th>
-                            <Th isNumeric>13</Th>
-                          </Tr>
-                          <Tr /*bgColor={t.name === team.name ? 'yellowgreen' : 'white'} key={t.name}*/>
-                            <Th>Mavericks</Th>
-                            <Th isNumeric>30</Th>
-                            <Th isNumeric>11</Th>
-                          </Tr>
-                          <Tr /*bgColor={t.name === team.name ? 'yellowgreen' : 'white'} key={t.name}*/>
-                            <Th>Mavericks</Th>
-                            <Th isNumeric>30</Th>
-                            <Th isNumeric>11</Th>
-                          </Tr>
-                          <Tr /*bgColor={t.name === team.name ? 'yellowgreen' : 'white'} key={t.name}*/>
-                            <Th>Mavericks</Th>
-                            <Th isNumeric>30</Th>
-                            <Th isNumeric>11</Th>
-                          </Tr>
-                          <Tr /*bgColor={t.name === team.name ? 'yellowgreen' : 'white'} key={t.name}*/>
-                            <Th>Mavericks</Th>
-                            <Th isNumeric>30</Th>
-                            <Th isNumeric>11</Th>
-                          </Tr>
-                          <Tr /*bgColor={t.name === team.name ? 'yellowgreen' : 'white'} key={t.name}*/>
-                            <Th>Mavericks</Th>
-                            <Th isNumeric>30</Th>
-                            <Th isNumeric>11</Th>
-                          </Tr>
-                          <Tr /*bgColor={t.name === team.name ? 'yellowgreen' : 'white'} key={t.name}*/>
-                            <Th>Mavericks</Th>
-                            <Th isNumeric>30</Th>
-                            <Th isNumeric>11</Th>
-                          </Tr>
-                          <Tr /*bgColor={t.name === team.name ? 'yellowgreen' : 'white'} key={t.name}*/>
-                            <Th>Mavericks</Th>
-                            <Th isNumeric>30</Th>
-                            <Th isNumeric>11</Th>
-                          </Tr>
-                          <Tr /*bgColor={t.name === team.name ? 'yellowgreen' : 'white'} key={t.name}*/>
-                            <Th>Mavericks</Th>
-                            <Th isNumeric>30</Th>
-                            <Th isNumeric>11</Th>
-                          </Tr>
-                          <Tr bgColor={'yellowgreen'} /*key={t.name}*/>
-                            <Th>Hawks</Th>
-                            <Th isNumeric>20</Th>
-                            <Th isNumeric>18</Th>
-                          </Tr>
-                  </Tbody>  
+                  <Tbody>{teamss.filter(t => t.teamID > 17).map(t => (
+                    <Tr bg={team.teamID == t.teamID ? 'lightgreen' : 'white'}>
+                      <Th>{t.name.split(' ').length > 2 ? t.name.split(' ')[2] : t.name.split(' ')[1]}</Th>
+                      <Th textAlign={'center'}>-</Th>
+                      <Th textAlign={'center'}>-</Th>
+                    </Tr>
+                  ))}</Tbody>
                 </Table>
               </TableContainer>
         </div>

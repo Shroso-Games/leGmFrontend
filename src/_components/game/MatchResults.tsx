@@ -13,7 +13,7 @@ export const MatchResults = () => {
                 <Flex justify={'center'}>
                     <Heading pt={20} size={'3xl'}>🏆 You win! 🏆</Heading>
                 </Flex> :
-                <Heading textAlign={'center'} pt={20} size={'3xl'}>💔 You Lose! 💔</Heading>}
+                <Heading textAlign={'center'} pt={20} size={'3xl'}>❌ You Lose! ❌</Heading>}
             <Flex justify={'center'} pt={10}>
                 <Text fontSize={40} textAlign={'center'}>LAL</Text>
                 <Text paddingStart={5} fontSize={40} textAlign={'center'}>{
@@ -30,9 +30,9 @@ export const MatchResults = () => {
                 <Text paddingStart={5} fontSize={40} textAlign={'center'}>DAL</Text>
             </Flex>
             
-            <TableContainer pt={5}>
-                <Table variant={'striped'} textColor={'black'} bgColor={'white'}>
-                    <Thead bgColor={'lightgrey'}>
+            <TableContainer overflowY={'auto'} overflowX={'auto'} height={'40rem'} mt={5}>
+                <Table  variant={'striped'} textColor={'black'} bgColor={'white'}>
+                    <Thead position={'sticky'} top={0} bgColor={'lightgrey'}>
                         <Tr>
                             <Th>Player</Th>
                             <Th>Position</Th>

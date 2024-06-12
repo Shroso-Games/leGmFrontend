@@ -3,11 +3,12 @@ import {
     Center,
     Flex,
     Heading,
-    Image, Spinner,
+    Image, position, Spinner,
     Stack,
     Table,
     TableContainer,
     Tbody,
+    Td,
     Th,
     Thead,
     Tr
@@ -15,58 +16,60 @@ import {
 import {useContext, useState} from "react";
 import {TeamContext} from "../../_contexts/TeamContext";
 import {pythonClient} from "../../_services/api-client";
-import {IMatch, IMatchResponse} from "../../_common/models";
+import {IMatch, IMatchPlayer, IMatchResponse, ITeam} from "../../_common/models";
 import {useNavigate} from "react-router-dom";
-
+import { TeamsContext } from "../../_contexts/TeamsContext";
+import { PlayersContext } from "../../_contexts/PlayersContext";
+import { usePlayers } from "../../_hooks/usePlayers";
 
 export const PlayGame = () => {
     const [team] = useContext(TeamContext);
+    const [teamss] = useContext(TeamsContext);
+    const [players] = useContext(PlayersContext);
     const [loading, setLoading] = useState<boolean>(false);
     const [, setOutcome] = useState<IMatchResponse>({} as IMatchResponse);
     const navigate = useNavigate();
 
+
+    const enemy: ITeam = teamss.find(t => t.teamID == 1) ?? {} as ITeam;
+
+    const playerOfTeam : IMatchPlayer[] = usePlayers(enemy.teamID).map(p => ({
+      name: p.firstName + " " +p.lastName,
+      offRating: 50,
+      defRating: 50,
+      position: p.position
+    }));
+
+    const myPlayers : IMatchPlayer[] = usePlayers(team.teamID).map(p => ({
+      name: p.firstName + " " + p.lastName,
+      offRating: 50,
+      defRating: 50,
+      position: p.position
+    }));
+
+
     const simulate = () => {
-        const test: IMatch = {
-            "home_team": {
-                "abbr": "ATL",
-                "wins": 30,
-                "losses": 10,
-                "name": "Atlanta Hawks",
-                "players": [
-                    {"name": "Trae Young", "offRating": 80, "defRating": 80, position: 'PG'},
-                    {"name": "Trae Young", "offRating": 70, "defRating": 70, position: 'PG'},
-                    {"name": "Trae Young", "offRating": 60, "defRating": 60, position: 'PG'},
-                    {"name": "Trae Young", "offRating": 50, "defRating": 50, position: 'PG'},
-                    {"name": "Trae Young", "offRating": 40, "defRating": 40, position: 'PG'},
-                    {"name": "Trae Young", "offRating": 30, "defRating": 30, position: 'PG'},
-                    {"name": "Trae Young", "offRating": 20, "defRating": 20, position: 'PG'},
-                    {"name": "Trae Young", "offRating": 10, "defRating": 10, position: 'PG'},
-                    {"name": "Trae Young", "offRating": 0, "defRating": 0, position: 'PG'},
-                    {"name": "Trae Young", "offRating": 0, "defRating": 0, position: 'PG'}
-                ]
-            },
-            "away_team": {
-                "abbr": "DAL",
-                "wins": 40,
-                "losses": 0,
-                "name": "Dallas Mavericks",
-                "players": [
-                    {"name": "Luka Doncic", "offRating": 90, "defRating": 90, position: 'PG'},
-                    {"name": "Luka Doncic", "offRating": 80, "defRating": 80, position: 'PG'},
-                    {"name": "Luka Doncic", "offRating": 70, "defRating": 70, position: 'PG'},
-                    {"name": "Luka Doncic", "offRating": 60, "defRating": 60, position: 'PG'},
-                    {"name": "Luka Doncic", "offRating": 50, "defRating": 50, position: 'PG'},
-                    {"name": "Luka Doncic", "offRating": 40, "defRating": 40, position: 'PG'},
-                    {"name": "Luka Doncic", "offRating": 30, "defRating": 30, position: 'PG'},
-                    {"name": "Luka Doncic", "offRating": 20, "defRating": 20, position: 'PG'},
-                    {"name": "Luka Doncic", "offRating": 10, "defRating": 10, position: 'PG'},
-                    {"name": "Luka Doncic", "offRating": 0, "defRating": 0, position: 'PG'}
-                ]
-            },
-            "my_team": 0
+
+        const match : IMatch = {
+          "home_team": {
+            "abbr": enemy.name.split(' ').length > 2 ? enemy.name.split(' ')[2] : enemy.name.split(' ')[1],
+            "name": enemy.name,
+            "wins": 0,
+            "losses": 0,
+            "players": playerOfTeam
+          },
+          "away_team": {
+            "abbr": team.name.split(' ').length > 2 ? team.name.split(' ')[2] : team.name.split(' ')[1],
+            "name": team.name,
+            "wins": 0,
+            "losses": 0,
+            "players": myPlayers
+          },
+          "my_team": 0
         }
+
         let result: IMatchResponse = {} as IMatchResponse;
-        pythonClient.post('/predict', test)
+        pythonClient.post('/predict', match)
             .then(res => {
                 setLoading(false);
                 result = res.data;
@@ -99,9 +102,9 @@ export const PlayGame = () => {
                 <Image pe={5} height={20} src={team.logo} alt={team.name}/>
                 <Heading textAlign={'center'} size={'2xl'}>{team.name}</Heading>
                 <Heading paddingInline={10}>@</Heading>
-                <Heading textAlign={'center'} size={'2xl'}>Dallas Mavericks</Heading>
+                <Heading textAlign={'center'} size={'2xl'}>{enemy.name}</Heading>
                 <Image ps={5} height={20}
-                       src={'https://upload.wikimedia.org/wikipedia/en/thumb/9/97/Dallas_Mavericks_logo.svg/1200px-Dallas_Mavericks_logo.svg.png'}
+                       src={enemy.logo}
                        alt={team.name}/>
             </Flex>
             <Stack>
@@ -110,10 +113,10 @@ export const PlayGame = () => {
                         fontSize={30} _hover={{backgroundColor: 'darkgreen'}} onClick={simulate}>Simulate</Button>
                 <Flex ps={5}>
                     <Stack>
-                        <Heading pt={20} ps={40}>Starting five {team.code}</Heading>
-                        <TableContainer width={'40rem'}>
+                        <Heading pt={20} ps={40}>Lineup {team.code}</Heading>
+                        <TableContainer overflowY={'auto'} overflowX={'auto'} height={'20rem'} width={'40rem'}>
                             <Table bgcolor="white" variant={'simple'} textColor={'black'}>
-                                <Thead bgColor={'darkgray'}>
+                                <Thead bgColor={'darkgray'} position={'sticky'} top={0}>
                                     <Tr>
                                         <Th>Player</Th>
                                         <Th>Position</Th>
@@ -122,83 +125,39 @@ export const PlayGame = () => {
                                     </Tr>
                                 </Thead>
                                 <Tbody>
+                                {myPlayers.map(p => (
                                     <Tr>
-                                        <Th>T. Young</Th>
-                                        <Th textAlign={'center'}>PG</Th>
-                                        <Th textAlign={'center'}>80</Th>
-                                        <Th textAlign={'center'}>71</Th>
+                                      <Td>{p.name}</Td>
+                                      <Td>{p.position}</Td>
+                                      <Td>{p.offRating}</Td>
+                                      <Td>{p.defRating}</Td>
                                     </Tr>
-                                    <Tr>
-                                        <Th>T. Young</Th>
-                                        <Th textAlign={'center'}>PG</Th>
-                                        <Th textAlign={'center'}>80</Th>
-                                        <Th textAlign={'center'}>71</Th>
-                                    </Tr>
-                                    <Tr>
-                                        <Th>T. Young</Th>
-                                        <Th textAlign={'center'}>PG</Th>
-                                        <Th textAlign={'center'}>80</Th>
-                                        <Th textAlign={'center'}>71</Th>
-                                    </Tr>
-                                    <Tr>
-                                        <Th>T. Young</Th>
-                                        <Th textAlign={'center'}>PG</Th>
-                                        <Th textAlign={'center'}>80</Th>
-                                        <Th textAlign={'center'}>71</Th>
-                                    </Tr>
-                                    <Tr>
-                                        <Th>T. Young</Th>
-                                        <Th textAlign={'center'}>PG</Th>
-                                        <Th textAlign={'center'}>80</Th>
-                                        <Th textAlign={'center'}>71</Th>
-                                    </Tr>
+                                  ))}
                                 </Tbody>
                             </Table>
                         </TableContainer>
                     </Stack>
                     <Stack ps={40}>
-                        <Heading pt={20} ps={40}>Starting five DAL</Heading>
-                        <TableContainer width={'40rem'}>
+                        <Heading pt={20} ps={40}>Lineup {enemy.code}</Heading>
+                        <TableContainer overflowY={'auto'} overflowX={'auto'} height={'20rem'} width={'40rem'}>
                             <Table bgcolor="white" variant={'simple'} textColor={'black'}>
-                                <Thead bgColor={'darkgray'}>
+                                <Thead bgColor={'darkgray'}  position={'sticky'} top={0}>
                                     <Tr>
-                                        <Th>Player</Th>
-                                        <Th>Position</Th>
-                                        <Th>Offensive Rating</Th>
+                                        <Th >Player</Th>
+                                        <Th >Position</Th>
+                                        <Th >Offensive Rating</Th>
                                         <Th>Defensive Rating</Th>
                                     </Tr>
                                 </Thead>
                                 <Tbody>
+                                  {playerOfTeam.map(p => (
                                     <Tr>
-                                        <Th>L. Doncic</Th>
-                                        <Th textAlign={'center'}>PG</Th>
-                                        <Th textAlign={'center'}>89</Th>
-                                        <Th textAlign={'center'}>80</Th>
+                                      <Td>{p.name}</Td>
+                                      <Td>{p.position}</Td>
+                                      <Td>{p.offRating}</Td>
+                                      <Td>{p.defRating}</Td>
                                     </Tr>
-                                    <Tr>
-                                        <Th>L. Doncic</Th>
-                                        <Th textAlign={'center'}>PG</Th>
-                                        <Th textAlign={'center'}>89</Th>
-                                        <Th textAlign={'center'}>80</Th>
-                                    </Tr>
-                                    <Tr>
-                                        <Th>L. Doncic</Th>
-                                        <Th textAlign={'center'}>PG</Th>
-                                        <Th textAlign={'center'}>89</Th>
-                                        <Th textAlign={'center'}>80</Th>
-                                    </Tr>
-                                    <Tr>
-                                        <Th>L. Doncic</Th>
-                                        <Th textAlign={'center'}>PG</Th>
-                                        <Th textAlign={'center'}>89</Th>
-                                        <Th textAlign={'center'}>80</Th>
-                                    </Tr>
-                                    <Tr>
-                                        <Th>L. Doncic</Th>
-                                        <Th textAlign={'center'}>PG</Th>
-                                        <Th textAlign={'center'}>89</Th>
-                                        <Th textAlign={'center'}>80</Th>
-                                    </Tr>
+                                  ))}
                                 </Tbody>
                             </Table>
                         </TableContainer>

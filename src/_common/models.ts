@@ -1,12 +1,59 @@
 export interface ITeam {
-  id:           number;
-  name:         string;
-  nickname:     string;
-  code:         string;
-  city:         string;
-  logo:         string;
-  allStar:      boolean;
-  nbaFranchise: boolean;
+  teamID:      number;
+    name:        string;
+    code:        string;
+    city:        string;
+    logo:        string;
+    offRating:   number;
+    defRating:   number;
+    coachingLvl: number;
+    medicalLvl:  number;
+    scoutingLvl: number;
+}
+
+export interface IGame {
+  id: number;
+  away_team: ITeam;
+  home_team: ITeam;
+  date: string;
+  location: string;
+  
+}
+
+export interface IPlayerTeam {
+  teamID : number;
+  playerID: number;
+  startDate : Date,
+  endDate: Date,
+}
+
+export interface IGamePlayer {
+  stats: IMatchResponsePlayer;
+  player: IPlayer;
+  game: IGame
+}
+
+export interface IPlayer {
+  id: number,
+  firstName: string,
+  lastName : string,
+  birthdate: string,
+  college: string,
+  height: number,
+  weight: number,
+  handles: number,
+  passing: number,
+  rebounding: number,
+  threePointer: number,
+  midRange: number,
+  post: number,
+  finishing: number,
+  speed: number,
+  stamina: number,
+  offIQ: number,
+  defIQ: number,
+  intangibles: number,
+  position: string
 }
 
 export interface IMatch {
@@ -20,7 +67,7 @@ export interface IMatchTeam {
   abbr:    string;
   wins:    number;
   losses:  number;
-  players: IMatchPlayer[];
+  players: IMatchPlayer;
 }
 
 export interface IMatchPlayer {

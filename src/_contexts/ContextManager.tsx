@@ -1,5 +1,6 @@
 import {ReactNode} from "react";
 import {TeamContextProvider} from "./TeamContext";
+import { PlayersContextProvider } from "./PlayersContext";
 
 interface Props {
     children: ReactNode
@@ -19,7 +20,9 @@ interface Props {
 export const ContextManager = ({children}: Props) => {
     return (
         <TeamContextProvider>
-            {children}
+          <PlayersContextProvider>
+              {children}
+          </PlayersContextProvider>
         </TeamContextProvider>
     );
 }
