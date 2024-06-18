@@ -11,14 +11,7 @@ export interface ITeam {
     scoutingLvl: number;
 }
 
-export interface IGame {
-  id: number;
-  away_team: ITeam;
-  home_team: ITeam;
-  date: string;
-  location: string;
-  
-}
+
 
 export interface IPlayerTeam {
   teamID : number;
@@ -34,7 +27,8 @@ export interface IGamePlayer {
 }
 
 export interface IPlayer {
-  id: number,
+  playerID: number,
+  userID: number,
   firstName: string,
   lastName : string,
   birthdate: string,
@@ -102,4 +96,64 @@ export interface IMatchResponsePlayer {
     points:         number;
     rebounds:       number;
     steals:         number;
+}
+
+
+export interface ISave {
+  userID: any,
+  email: string,
+  password: string
+}
+
+export interface IStats {
+  minute: number;
+  pts: number;
+  ast: number;
+  treb: number;
+  oreb: number;
+  dreb: number;
+  stl: number;
+  turno: number;
+  fgper: number;
+  threepper: number;
+  ftper: number;
+}
+
+export interface IPlayerTeam {
+  teamID: number;
+  userID: number;
+  startDate: Date; // Assuming the date is in ISO string format
+  playerID: number;
+  endDate: Date;
+}
+
+
+
+export interface IGame {
+    gameID: number;
+    awayTeam: ITeam;
+    homeTeam: ITeam;
+    date: string; // Assuming the date is in ISO string format
+    location: string;
+    gamePlayerList: IGamePlayer[];
+}
+
+export interface IGamePlayer {
+    gamePlayerID: number;
+    minute: number;
+    pts: number;
+    ast: number;
+    oreb: number;
+    dreb: number;
+    stl: number;
+    turno: number;
+    fga: number;
+    fgm: number;
+    threepa: number;
+    threepm: number;
+    fta: number;
+    ftm: number;
+    player: IPlayer;
+    game: IGame;
+
 }

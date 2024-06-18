@@ -72,33 +72,32 @@ export const Dashboard = () => {
                 </TableContainer>
           </div>
           <div>
-          <Heading paddingStart={'14rem'} pt={5}>Next Up</Heading>
+          <Heading paddingStart={'10.5rem'} pt={5}>Recent Games</Heading>
             <TableContainer ms={20} mt={5} width={'25rem'}>
-                  <Table bgColor={'white'} variant={'simple'} textColor={'whiteAlpha'}  color={'white'}>
+                  <Table bgColor={'white'} variant={'simple'} textColor={'black'}  color={'black'}>
                     <Thead bgColor={'darkGrey'}>
                       <Tr>
-                        <Th>TEAM</Th>
+                        <Th textAlign={'center'}>Opp.</Th>
                         <Th>RECORD</Th>
-                        <Th>DAYS</Th>
+                        <Th textAlign={'center'}>Score</Th>
+                        <Th textAlign={'center'}>W/L</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
+                      {/*! INFO: This is only temporary mock data*/      }
                       <Tr>
-                        <Th>vs Lakers</Th>
-                        <Th>29-11</Th>
-                        <Th>3</Th>
-                      </Tr>
+                        <Td>@ ORL</Td>
+                        <Td>20-5</Td>
+                        <Td textAlign={'center'}>110-105</Td>
+                        <Td textAlign={'center'} color={'green'}>W</Td>
+                      </Tr> 
                       <Tr>
-                        <Th>vs Mavericks</Th>
-                        <Th>30-10</Th>
-                        <Th>6</Th>
-                      </Tr>
-                      <Tr>
-                        <Th>@ Suns</Th>
-                        <Th>23-15</Th>
-                        <Th>9</Th>
-                      </Tr>
-                    </Tbody>  
+                        <Td>vs DAL</Td>
+                        <Td>20-5</Td>
+                        <Td textAlign={'center'}>95-107</Td>
+                        <Td textAlign={'center'} color={'red'}>L</Td>
+                      </Tr> 
+                    </Tbody>
                   </Table>
                 </TableContainer>
           </div>

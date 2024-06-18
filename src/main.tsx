@@ -8,7 +8,7 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "#474747", // Set the default background color to black
+        bg: "#1F2937", // Set the default background color to black
         color: "white", // Set the default text color to white (optional)
       },
     },

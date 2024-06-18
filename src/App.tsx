@@ -9,6 +9,8 @@ import Layout from './_components/game/Layout'
 import { PlayGame } from './_components/game/PlayGame'
 import { MatchResults } from './_components/game/MatchResults'
 import { Roster } from './_components/gamepage/Roster'
+import { Register } from './_components/newgame/Register'
+import { PlayerInfo } from './_components/gamepage/PlayerInfo'
 
 
 function App() {
@@ -27,8 +29,9 @@ function App() {
             <Routes>
               <Route path='/' element={<Dashboard/>}/>
               <Route path='/sim' element={<PlayGame/>}/>
-              <Route path='/match_outcome' element={<MatchResults/>}/>
+              <Route path='/sim/match_outcome' element={<MatchResults/>}/>
               <Route path='/roster' element={<Roster/>}/>
+              <Route path='/playerinfo' element={<PlayerInfo/>}/>
             </Routes>
           </BrowserRouter>
         </Layout>
@@ -38,6 +41,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Homepage/>}/>
             <Route path='/chooseteam' element={<TeamSelection/>}/>
+            <Route path='/register' element={<Register/>}/>
           </Routes>
         </BrowserRouter>}
       </ContextManager> 

@@ -22,7 +22,7 @@ export const usePlayers = (teamID: number) => {
   const [, setError] = useState("");
   
   useEffect(() => {
-    apiClient.get<IPlayer[]>('/players', {params: {team: teamID}})
+    apiClient.get<IPlayer[]>('/players?user='+localStorage.getItem('user'), {params: {team: teamID}})
       .then(res => {
         res.data = res.data.filter(p => p.height != 0);
         localStorage.removeItem('players');

@@ -1,11 +1,12 @@
 import React, { ReactNode, useContext } from "react";
-import { Box, Flex, VStack, Heading, Image, Link, Spacer, Button, useDisclosure,
+import { Box, Flex, VStack, Heading, Image, Spacer, Button, useDisclosure,
    Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay,
    Text } from "@chakra-ui/react";
 import { color } from "framer-motion";
 import { TeamContext } from "../_contexts/TeamContext";
 //import { TeamsContext } from "../_contexts/TeamsContext";
 import { ITeam } from "../_common/models";
+import { Link } from "react-router-dom";
 
 interface Props {
   children : ReactNode
@@ -20,7 +21,7 @@ const Layout = ({ children } : Props) => {
 
   const onChangeTeam = () => {
     localStorage.removeItem("team");
-    window.location.reload();
+    localStorage.removeItem("user");
     setTeam({} as ITeam);
     //setTeams([]);
   }
@@ -35,10 +36,10 @@ const Layout = ({ children } : Props) => {
             <Spacer />
             <Button ms={5} color={'white'} _hover={{bgColor: 'darkgreen'}} mb={5} bgColor={'green'}>Play →</Button>
           </Flex>
-          <Link>Roster</Link> 
-          <Link>Schedule</Link>
-          <Link>Free Agency</Link>
-          <Link>Trade Players</Link>
+          <a>Roster</a> 
+          <a>Schedule</a>
+          <a>Free Agency</a>
+          <a>Trade Players</a>
           {/* Add more navigation links as needed */}
           <Button mt={600} onClick={onOpen} color={'white'} bgColor={'red'}  _hover={{bgColor: 'darkred', color: "white"}}>Change team</Button>
           <Modal onClose={onClose} isOpen={isOpen} isCentered>
@@ -50,7 +51,7 @@ const Layout = ({ children } : Props) => {
                 <Text>This will delete your current save and start a new career!</Text>
               </ModalBody>
               <ModalFooter>
-                <Button bgColor={'red'} color={'white'} onClick={onChangeTeam}>Yes, Delete</Button>
+                <Button bgColor={'red'} color={'white'} onClick={onChangeTeam}><Link to='/'>Yes, Delete</Link></Button>
               </ModalFooter>
             </ModalContent>
           </Modal>

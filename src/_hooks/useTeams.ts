@@ -19,7 +19,7 @@ export const useTeams = () => {
   const [error, setError] = useState("");
   
   useEffect(() => {
-    apiClient.get<ITeam[]>('/teams')
+    apiClient.get<ITeam[]>('/teams?user='+localStorage.getItem('user'))
       .then(res => {
         localStorage.removeItem('teams');
         res.data = res.data.filter(t => t.teamID != 37);
