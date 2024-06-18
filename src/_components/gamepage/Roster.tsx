@@ -2,8 +2,9 @@ import { Center, Flex, Heading, Image, Spinner, Table, TableContainer, Tbody, Td
 import { useContext, useState } from "react";
 import { TeamContext } from "../../_contexts/TeamContext";
 import { usePlayers } from "../../_hooks/usePlayers";
-import { IPlayer } from "../../_common/models";
+import { IPlayer, IStats } from "../../_common/models";
 import { useNavigate } from "react-router-dom";
+import { apiClient } from "../../_services/api-client";
 
 
 export const Roster = () => {
@@ -12,10 +13,21 @@ export const Roster = () => {
   const players: IPlayer[] = usePlayers(team.teamID);
   const navigate = useNavigate();
 
+  const getPlayerStats = (player: IPlayer) => {
+    apiClient.get<IStats>('/players/stats?user='+localStorage.getItem('user')+'&player='+player.playerID)
+      .then(res => {
+        localStorage.setItem('player_stats', JSON.stringify(res.data));
+        navigate('/playerinfo');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   
   const getPlayerInfo = (player: IPlayer) => {
     localStorage.setItem('player', JSON.stringify(player));
-    navigate('/playerinfo');
+    getPlayerStats(player);
   }
 
   return (
