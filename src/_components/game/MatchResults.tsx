@@ -1,3 +1,14 @@
+/*
+
+ Author: schoeni-mo
+ Email: soemod20@htl-kaindorf.at
+
+ Creation Date: 2024-06-09 17:38:09
+ Last Modification Date: 2024-06-18 19:48:48
+
+ 
+
+*/
 import {IMatchResponse} from "../../_common/models";
 import {Flex, Heading, Table, TableContainer, Text, Thead, Tr, Th, Tbody, Td} from "@chakra-ui/react";
 import {TeamContext} from "../../_contexts/TeamContext.tsx";

@@ -1,3 +1,16 @@
+/*
+
+ Author: schoeni-mo
+ Email: soemod20@htl-kaindorf.at
+
+ Creation Date: 2024-06-09 15:27:15
+ Last Modification Date: 2024-06-18 19:48:25
+
+ 
+ This component is not finished yet, waiting for Ivan implement my python backend into Java Spring 
+ backend
+*/
+
 import {
     Button,
     Center,

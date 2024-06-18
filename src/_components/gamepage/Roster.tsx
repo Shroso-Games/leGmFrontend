@@ -1,3 +1,14 @@
+/*
+
+ Author: schoeni-mo
+ Email: soemod20@htl-kaindorf.at
+
+ Creation Date: 2024-06-11 17:12:49
+ Last Modification Date: 2024-06-18 19:46:29
+
+ This component is used to display a Team's assigned player roster.
+*/
+
 import { Center, Flex, Heading, Image, Spinner, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { TeamContext } from "../../_contexts/TeamContext";
@@ -5,6 +16,9 @@ import { usePlayers } from "../../_hooks/usePlayers";
 import { IPlayer, IStats } from "../../_common/models";
 import { useNavigate } from "react-router-dom";
 import { apiClient } from "../../_services/api-client";
+
+
+
 
 
 export const Roster = () => {

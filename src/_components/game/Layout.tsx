@@ -1,7 +1,20 @@
-import React, { ReactNode, useContext } from "react";
-import { Box, Flex, VStack, Heading, Image, Link, Spacer, Button, useDisclosure,
-   Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay,
-   Text } from "@chakra-ui/react";
+/*
+
+ Author: schoeni-mo
+ Email: soemod20@htl-kaindorf.at
+
+ Creation Date: 2024-06-18 19:51:25
+ Last Modification Date: 2024-06-18 19:52:18
+
+ 
+ This serves as an overall layout for the main game. THe other components are displayed inside of this layout.
+*/
+import { ReactNode, useContext } from "react";
+import {
+  Box, Flex, VStack, Heading, Link, Spacer, Button, useDisclosure,
+  Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay,
+  Text
+} from "@chakra-ui/react";
 import { TeamContext } from "../../_contexts/TeamContext";
 //import { TeamsContext } from "../_contexts/TeamsContext";
 

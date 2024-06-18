@@ -4,6 +4,17 @@ import { useContext, useState } from "react";
 import { TeamContext } from "../../_contexts/TeamContext";
 
 
+/**========================================================================
+ * *                                INFO
+ *   This component is used to display certain individual Player info to 
+ *   the user. The selected Player is saved in localStorage as well as the 
+ *   corresponding stats.
+ *
+ *   Created-by: schoeni-mo
+ *   Create-on: 2024-06-17 11:08:26
+ *========================================================================**/
+
+
 export const PlayerInfo = () => {
 
   const player : IPlayer = localStorage.getItem("player") && JSON.parse(localStorage.getItem('player') as string) != "{}" ?
