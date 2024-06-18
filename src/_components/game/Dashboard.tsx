@@ -4,7 +4,7 @@
  Email: soemod20@htl-kaindorf.at
 
  Creation Date: 2024-05-11 12:44:16
- Last Modification Date: 2024-06-18 19:45:38
+ Last Modification Date: 2024-06-19 00:03:37
 
  
 
@@ -13,9 +13,10 @@
 
 
 import { Flex, Heading, TableContainer, Table, Thead, Tr, Td, Tbody, Th, Stack, Image } from "@chakra-ui/react";
-import { ReactNode, useContext } from "react";
+import {  useContext } from "react";
 import { TeamContext } from "../../_contexts/TeamContext";
 import { TeamsContext } from "../../_contexts/TeamsContext";
+import { useGames } from "../../_hooks/useGames";
 
 
 
@@ -24,6 +25,7 @@ import { TeamsContext } from "../../_contexts/TeamsContext";
 export const Dashboard = () => {
   const [team] = useContext(TeamContext);
   const [teamss] = useContext(TeamsContext);
+  const games = useGames(team.teamID);
   return (
     <div>
       <Heading textAlign={'center'} size="md">Welcome to the</Heading>
@@ -56,9 +58,9 @@ export const Dashboard = () => {
         <Stack>
           <div>
             <Heading paddingStart={'11rem'} pt={5}>Injury Report</Heading>
-            <TableContainer ms={20} mt={5} width={'25rem'}>
+            <TableContainer  overflowY={'auto'} overflowX={'auto'} ms={20} mt={5} width={'25rem'}>
               <Table bgColor={'white'} variant={'simple'} textColor={'whiteAlpha'} color={'white'}>
-                <Thead bgColor={'darkGrey'}>
+                <Thead position={'sticky'} top={0} bgColor={'darkGrey'}>
                   <Tr>
                     <Th>PLAYER</Th>
                     <Th>DURATION</Th>
@@ -87,10 +89,11 @@ export const Dashboard = () => {
           </div>
           <div>
             <Heading paddingStart={'10.5rem'} pt={5}>Recent Games</Heading>
-            <TableContainer ms={20} mt={5} width={'25rem'}>
+            <TableContainer  overflowY={'auto'} overflowX={'auto'} ms={20} mt={5} width={'35rem'} height={'20rem'}>
               <Table bgColor={'white'} variant={'simple'} textColor={'black'} color={'black'}>
-                <Thead bgColor={'darkGrey'}>
+                <Thead position={'sticky'} top={0} bgColor={'darkGrey'}>
                   <Tr>
+                    <Th>Date</Th>
                     <Th textAlign={'center'}>Opp.</Th>
                     <Th>RECORD</Th>
                     <Th textAlign={'center'}>Score</Th>
@@ -99,18 +102,15 @@ export const Dashboard = () => {
                 </Thead>
                 <Tbody>
                   {/*! INFO: This is only temporary mock data*/}
-                  <Tr>
-                    <Td>@ ORL</Td>
-                    <Td>20-5</Td>
-                    <Td textAlign={'center'}>110-105</Td>
-                    <Td textAlign={'center'} color={'green'}>W</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>vs DAL</Td>
-                    <Td>20-5</Td>
-                    <Td textAlign={'center'}>95-107</Td>
-                    <Td textAlign={'center'} color={'red'}>L</Td>
-                  </Tr>
+                  {games.map(g => (
+                    <Tr>
+                      <Td>{g.date}</Td>
+                      {g.awayTeam == team ? <Td>@ {g.homeTeam.code}</Td> : <Td>vs {g.awayTeam.code}</Td>}
+                      <Td>-</Td>
+                      <Td>-</Td>
+                      <Td>-</Td>
+                    </Tr>
+                  ))}
                 </Tbody>
               </Table>
             </TableContainer>

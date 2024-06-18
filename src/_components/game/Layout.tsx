@@ -4,7 +4,7 @@
  Email: soemod20@htl-kaindorf.at
 
  Creation Date: 2024-06-18 19:51:25
- Last Modification Date: 2024-06-18 19:52:18
+ Last Modification Date: 2024-06-18 19:56:31
 
  
  This serves as an overall layout for the main game. THe other components are displayed inside of this layout.
@@ -31,7 +31,7 @@ const Layout = ({ children } : Props) => {
 
   const onChangeTeam = () => {
     localStorage.removeItem("team");
-    window.location.reload();
+    window.location.href = "/";
     //setTeams([]);
   }
 

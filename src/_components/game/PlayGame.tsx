@@ -4,7 +4,7 @@
  Email: soemod20@htl-kaindorf.at
 
  Creation Date: 2024-06-09 15:27:15
- Last Modification Date: 2024-06-18 19:48:25
+ Last Modification Date: 2024-06-19 00:01:29
 
  
  This component is not finished yet, waiting for Ivan implement my python backend into Java Spring 
@@ -28,72 +28,40 @@ import {
 } from "@chakra-ui/react";
 import {useContext, useState} from "react";
 import {TeamContext} from "../../_contexts/TeamContext";
-import {pythonClient} from "../../_services/api-client";
-import {IMatch, IMatchPlayer, IMatchResponse, ITeam} from "../../_common/models";
+import {apiClient, pythonClient} from "../../_services/api-client";
+import {IGame, IMatch, IMatchPlayer, IMatchResponse, ITeam} from "../../_common/models";
 import {useNavigate} from "react-router-dom";
 import { TeamsContext } from "../../_contexts/TeamsContext";
 import { PlayersContext } from "../../_contexts/PlayersContext";
-import { usePlayers } from "../../_hooks/usePlayers";
 
 export const PlayGame = () => {
     const [team] = useContext(TeamContext);
     const [teamss] = useContext(TeamsContext);
-    const [players] = useContext(PlayersContext);
     const [loading, setLoading] = useState<boolean>(false);
-    const [, setOutcome] = useState<IMatchResponse>({} as IMatchResponse);
     const navigate = useNavigate();
 
 
-    const enemy: ITeam = teamss.find(t => t.teamID == 1) ?? {} as ITeam;
-
-    const playerOfTeam : IMatchPlayer[] = usePlayers(enemy.teamID).map(p => ({
-      name: p.firstName + " " +p.lastName,
-      offRating: 50,
-      defRating: 50,
-      position: p.position
-    }));
-
-    const myPlayers : IMatchPlayer[] = usePlayers(team.teamID).map(p => ({
-      name: p.firstName + " " + p.lastName,
-      offRating: 50,
-      defRating: 50,
-      position: p.position
-    }));
-
+    const enemy: ITeam = teamss.find(t => t.teamID == 5) ?? {} as ITeam;
 
     const simulate = () => {
-
-        const match : IMatch = {
-          "home_team": {
-            "abbr": enemy.name.split(' ').length > 2 ? enemy.name.split(' ')[2] : enemy.name.split(' ')[1],
-            "name": enemy.name,
-            "wins": 0,
-            "losses": 0,
-            "players": playerOfTeam
-          },
-          "away_team": {
-            "abbr": team.name.split(' ').length > 2 ? team.name.split(' ')[2] : team.name.split(' ')[1],
-            "name": team.name,
-            "wins": 0,
-            "losses": 0,
-            "players": myPlayers
-          },
-          "my_team": 0
+        const game : IMatch = {
+            away_team: 5,
+            home_team: team.teamID,
+            user:  localStorage.getItem("user") && JSON.parse(localStorage.getItem('user') as string) != "{}" ?
+            JSON.parse(localStorage.getItem("user") as string) : null,
+            date: "2024-10-11",
+            location: "Hawks Arena"
         }
-
-        let result: IMatchResponse = {} as IMatchResponse;
-        pythonClient.post('/predict', match)
+        setLoading(true);
+        apiClient.post<IGame>('/games/sim', {}, {params: {awayTeam: game.away_team, homeTeam: game.home_team, user: game.user, date: game.date, location: game.location}})
             .then(res => {
+                localStorage.setItem('match_outcome', JSON.stringify(res.data));
                 setLoading(false);
-                result = res.data;
-                localStorage.setItem('game_outcome', JSON.stringify(result));
-                navigate('/match_outcome');
+                navigate("/sim/match_outcome");
             })
             .catch(err => {
                 console.log(err);
             });
-        setOutcome(result);
-        setLoading(true);
     }
 
     return (
@@ -138,14 +106,7 @@ export const PlayGame = () => {
                                     </Tr>
                                 </Thead>
                                 <Tbody>
-                                {myPlayers.map(p => (
-                                    <Tr>
-                                      <Td>{p.name}</Td>
-                                      <Td>{p.position}</Td>
-                                      <Td>{p.offRating}</Td>
-                                      <Td>{p.defRating}</Td>
-                                    </Tr>
-                                  ))}
+                                
                                 </Tbody>
                             </Table>
                         </TableContainer>
@@ -163,14 +124,7 @@ export const PlayGame = () => {
                                     </Tr>
                                 </Thead>
                                 <Tbody>
-                                  {playerOfTeam.map(p => (
-                                    <Tr>
-                                      <Td>{p.name}</Td>
-                                      <Td>{p.position}</Td>
-                                      <Td>{p.offRating}</Td>
-                                      <Td>{p.defRating}</Td>
-                                    </Tr>
-                                  ))}
+                                  
                                 </Tbody>
                             </Table>
                         </TableContainer>

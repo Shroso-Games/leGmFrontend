@@ -21,10 +21,7 @@ const Navbar = () => {
         <div className="container mx-auto flex justify-between items-center">
           <a href="/" className="text-4xl font-bold">LeGM</a>
           <nav>
-            <a href="#" className="text-gray-300 hover:text-white ml-2">Home</a>
-            <a href="#" className="text-gray-300 hover:text-white ml-2">Features</a>
-            <a href="#" className="text-gray-300 hover:text-white ml-2">About</a>
-            <a href="#" className="text-gray-300 hover:text-white ml-2">Contact</a>
+            <a href="/register" style={{padding: 15, paddingInline: 40}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Play</a>
           </nav>
         </div>
       </header>

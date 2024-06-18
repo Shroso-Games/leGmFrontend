@@ -57,9 +57,11 @@ export interface IPlayer {
 }
 
 export interface IMatch {
-  home_team: IMatchTeam;
-  away_team: IMatchTeam;
-  my_team: number;
+  home_team: number;
+  away_team: number;
+  user: number;
+  date: string,
+  location: string;
 }
 
 export interface IMatchTeam {
@@ -71,17 +73,18 @@ export interface IMatchTeam {
 }
 
 export interface IMatchPlayer {
+  id: number;
   name:      string;
   offRating: number;
   defRating: number;
-  position: string;
 }
 
 export interface IMatchResponse {
-  "home_team": IMatchResponseTeam,
-  "away_team": IMatchResponseTeam,
-  "who_won": number;
-  "whoami": number;
+  "gameID": number;
+  "homeTeam": ITeam,
+  "awayTeam": ITeam,
+  "date": string;
+  "location": string;
 }
 
 export interface IMatchResponseTeam {
@@ -133,7 +136,25 @@ export interface IPlayerTeam {
   endDate: Date;
 }
 
-
+export interface GamePlayer {
+  gamePlayerID: number;
+  lastName: string;
+  minute: number;
+  pts: number;
+  ast: number;
+  oreb: number;
+  dreb: number;
+  stl: number;
+  turno: number;
+  fga: number;
+  fgm: number;
+  threepa: number;
+  threepm: number;
+  fta: number;
+  ftm: number;
+  player: IPlayer; // Assuming Player is another interface or type
+  game: IGame; // Assuming Game is another interface or type
+}
 
 export interface IGame {
     gameID: number;

@@ -1,6 +1,4 @@
-import { Heading, Text, Image, Stack } from "@chakra-ui/react";
 import Navbar from "./Navbar";
-import img from  "./legm.png";
 
 /*
  * @Author: Moritz Schöninger 
@@ -25,8 +23,8 @@ export const Homepage = () => {
           <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
           <div className="container mx-auto h-full flex flex-col justify-center items-center relative z-10 p-4">
             <h2 className="text-6xl font-bold mb-2 text-center">Lead Your Favorite NBA Team to Glory 🏀</h2>
-            <p className="text-md mb-4 text-xl max-w-2xl text-center">LeGM is the premier AI-powered NBA simulation game that puts you in the driver’s seat of your dream team’s destiny. Make strategic decisions, manage your roster, and bring home the championship!</p>
-            <a href="/register" style={{padding: 15}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Get Started</a>
+            <p className="text-md mb-4 text-xl max-w-2xl text-center">LeGM is the premier NBA simulation game that puts you in the driver’s seat of your dream team’s destiny. Make strategic decisions, manage your roster, and bring home the championship!</p>
+            <a href="/register" style={{padding: 15, paddingInline: 40}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Get Started</a>
           </div>
         </section>
 
@@ -46,7 +44,7 @@ export const Homepage = () => {
                 <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
                 <div className="relative z-10">
                   <h3 className="text-3xl font-bold mb-2">Realistic Simulations</h3>
-                  <p className="text-lg">Experience realistic game simulations powered by advanced AI, bringing the excitement of the NBA to your screen.</p>
+                  <p className="text-lg">Experience realistic game simulations powered by advanced mathematics, bringing the excitement of the NBA to your screen.</p>
                 </div>
               </div>
               <div className="hover:scale-95 cursor-pointer transition duration-300 ease-in-out relative bg-gray-700 py-20 p-4 rounded-lg overflow-hidden" style={{ backgroundImage: "url('https://www.essentiallysports.com/wp-content/uploads/lebron-harden-iso.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
