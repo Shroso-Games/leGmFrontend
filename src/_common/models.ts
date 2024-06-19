@@ -166,21 +166,22 @@ export interface IGame {
 }
 
 export interface IGamePlayer {
-    gamePlayerID: number;
-    minute: number;
-    pts: number;
-    ast: number;
-    oreb: number;
-    dreb: number;
-    stl: number;
-    turno: number;
-    fga: number;
-    fgm: number;
-    threepa: number;
-    threepm: number;
-    fta: number;
-    ftm: number;
-    player: IPlayer;
-    game: IGame;
-
+  gamePlayerID: number;
+  lastName: string;
+  minute: number;
+  pts: number;
+  ast: number;
+  oreb: number;
+  dreb: number;
+  stl: number;
+  turno: number;
+  fga: number;
+  fgm: number;
+  threepa: number;
+  threepm: number;
+  fta: number;
+  ftm: number;
+  player: IPlayer; // Optional because of @JsonIgnore
+  team: ITeam;
+  game: IGame;
 }

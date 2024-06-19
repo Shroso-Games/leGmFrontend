@@ -1,7 +1,8 @@
 import { Center, Image, Flex, Heading, Spacer, Spinner, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, Stack } from "@chakra-ui/react";
-import { IHeadshot, IPlayer, IStats } from "../../_common/models";
-import { useContext, useState } from "react";
+import { IGame, IGamePlayer, IHeadshot, IPlayer, IStats } from "../../_common/models";
+import { useContext, useEffect, useState } from "react";
 import { TeamContext } from "../../_contexts/TeamContext";
+import { apiClient } from "../../_services/api-client";
 
 
 /**========================================================================
@@ -25,6 +26,9 @@ export const PlayerInfo = () => {
   
    let rebounds = 0;
    const [team] = useContext(TeamContext);
+
+   const [teamGames, setTeamGames] = useState<IGame[]>([]);
+   const [gamePlayers, setGamePlayers] = useState<IGamePlayer[]>([]);
 
   const headshots: IHeadshot[] = [
       {
@@ -131,11 +135,33 @@ export const PlayerInfo = () => {
   
   
   console.log(player);
+
+
+  useEffect(() => {
+    apiClient.get<IGame[]>('/games', {params: {team: team.teamID, user: localStorage.getItem('user')}})
+      .then(res => {
+        setTeamGames(res.data);
+        getGamePlayers(res.data);
+      })
+      .catch(err => console.log(err));
+  }, []);
   
   
+  const getGamePlayers = (games: IGame[]) => {
+    console.log(games);
+      for (const teamGame of games) {
+        apiClient.get<IGamePlayer[]>('/games/gameplayers', {params: {team: team.teamID, game: teamGame.gameID, user: localStorage.getItem('user')}})
+        .then(res => {
+          res.data.forEach(gp => setGamePlayers([...gamePlayers, gp]));
+        })
+        .catch(err => console.log(err));
+      }    
+  }
   
   
   console.log(stats);
+  console.log(teamGames);
+  
   return (
     <div style={{paddingLeft: 60, paddingTop: 60}}>
       
@@ -191,12 +217,25 @@ export const PlayerInfo = () => {
                   <Th>AST</Th>
                   <Th>REB</Th>
                   <Th>STL</Th>
-                  
                   <Th>BLK</Th>
                 </Tr>
               </Thead> 
               <Tbody>
-
+              {gamePlayers.filter(p => p.player.playerID == player.playerID).map(gp => (
+                  <Tr>
+                    <Td>{teamGames.find(t => t.gameID == gp.game.gameID)?.date}</Td>
+                    <Td>{teamGames.find(t => t.gameID == gp.game.gameID)?.awayTeam.teamID == team.teamID ?
+                    <>@ {teamGames.find(t => t.gameID == gp.game.gameID)?.homeTeam.code}</>:
+                    <>vs {teamGames.find(t => t.gameID == gp.game.gameID)?.awayTeam.code} </>}
+                    </Td>
+                    <Td>{gp.minute}</Td>
+                    <Td>{gp.pts}</Td>
+                    <Td>{gp.ast}</Td>
+                    <Td>{gp.dreb + gp.oreb}</Td>
+                    <Td>{gp.stl}</Td>
+                    <Td>-</Td>
+                  </Tr>
+                ))}
               </Tbody>
           </Table>
       </TableContainer>

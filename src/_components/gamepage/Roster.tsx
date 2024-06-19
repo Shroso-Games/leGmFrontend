@@ -35,6 +35,8 @@ export const Roster = () => {
       })
       .catch(err => {
         console.log(err);
+        localStorage.removeItem('player_stats');
+        navigate('/playerinfo');
       });
   }
 
